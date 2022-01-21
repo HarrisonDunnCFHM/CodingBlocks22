@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     Direction myDirection;
     SpriteRenderer mySprite;
+    public bool blocked;
 
 
     // Start is called before the first frame update
@@ -23,12 +24,14 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myDirection = Direction.Down;
         mySprite = GetComponent<SpriteRenderer>();
-        
+        blocked = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        blocked = false;
+
         ProcessInputs();
         MovePlayer();
         AnimatePlayer();
@@ -95,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if ( transform.position != targetPosition)
         {
+            CheckForBlockedMovement();
+            if (blocked) { targetPosition = transform.position;  return; }
             var direction = targetPosition - transform.position;
             transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
         }
@@ -102,6 +107,19 @@ public class PlayerMovement : MonoBehaviour
         if (distanceMag < moveSnapThreshold)
         {
             SnapToGrid();
+        }
+    }
+
+    private void CheckForBlockedMovement()
+    {
+        List<PushableObject> pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
+        foreach (PushableObject pushable in pushables)
+        {
+            var distToPlayer = Vector2.SqrMagnitude(pushable.transform.position - transform.position);
+            if (!pushable.pushable && targetPosition == pushable.transform.position)
+            {
+                blocked = true;
+            }
         }
     }
 
@@ -135,5 +153,6 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
+      
     }
 }

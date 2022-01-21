@@ -13,10 +13,12 @@ public class PushableObject : MonoBehaviour
     [SerializeField] float pushDistance = 1f;
 
     //cached refs
-    public Direction pushedFrom;
-    public Vector3 targetPosition;
+    Direction directionFromPlayerToObj;
+    Vector3 targetPosition;
     PlayerMovement player;
     bool pushed;
+    public bool pushable;
+    List<PushableObject> pushableObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -24,19 +26,95 @@ public class PushableObject : MonoBehaviour
         targetPosition = transform.position;
         player = FindObjectOfType<PlayerMovement>();
         pushed = false;
+        pushableObjects = new List<PushableObject>(FindObjectsOfType<PushableObject>());
     }
 
     // Update is called once per frame
     void Update()
     {
-        PushedByPlayer();
-        MoveWhenPushed();
+        CheckPlayerDirection(); //check for direction of this object relative to player
+        CheckIfPushable(); //check if there are boxes directly behind this object relative to player
+        if (!pushable) { return; }
+        PushedByPlayer(); //check if box is pushed
+        MoveWhenPushed(); //actually move box
     }
 
+    private void CheckPlayerDirection()
+    {
+        Vector2 dirToPlayer = (player.transform.position - transform.position);
+        Vector2 dirToPlayerNormalized = dirToPlayer.normalized;
+        if (dirToPlayerNormalized == Vector2.up)
+        {
+            directionFromPlayerToObj = Direction.Up;
+        }
+        else if (dirToPlayerNormalized == Vector2.down)
+        {
+            directionFromPlayerToObj = Direction.Down;
+        }
+        else if (dirToPlayerNormalized == Vector2.left)
+        {
+            directionFromPlayerToObj = Direction.Left;
+        }
+        else if (dirToPlayerNormalized == Vector2.right)
+        {
+            directionFromPlayerToObj = Direction.Right;
+        }
+    }
+
+    private void CheckIfPushable()
+    {
+        Vector3 checkVector;
+        switch (directionFromPlayerToObj)
+        {
+            case Direction.Up:
+                checkVector = new Vector3(0f, -1f, 0f);
+                pushable = CheckOtherBoxes(checkVector);
+                break;
+            case Direction.Down:
+                checkVector = new Vector3(0f, 1f, 0f);
+                pushable = CheckOtherBoxes(checkVector); 
+                break;
+            case Direction.Right:
+                checkVector = new Vector3(-1f, 0f, 0f);
+                pushable = CheckOtherBoxes(checkVector); 
+                break;
+            case Direction.Left:
+                checkVector = new Vector3(1f, 0f, 0f);
+                pushable = CheckOtherBoxes(checkVector); 
+                break;
+            case Direction.None:
+                checkVector = new Vector3(0f, 0f, 0f);
+                pushable = CheckOtherBoxes(checkVector); 
+                break;
+            default:
+                break;
+        }
+    }
+
+    private bool CheckOtherBoxes(Vector3 pushDirection)
+    {
+        foreach (PushableObject pushable in pushableObjects)
+        {
+            if (transform.position + pushDirection == pushable.transform.position)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    private void PushedByPlayer()
+    {
+        Vector2 dirToPlayer = (player.transform.position - transform.position);
+        float distToPlayer = Vector2.SqrMagnitude(dirToPlayer);
+        if (distToPlayer < pushDistance)
+        {
+            pushed = true;
+        }
+    }
     private void MoveWhenPushed()
     {
         Vector2 direction;
-        switch (pushedFrom)
+        switch (directionFromPlayerToObj)
         {
             case Direction.Up:
                 direction = Vector2.down;
@@ -77,33 +155,8 @@ public class PushableObject : MonoBehaviour
         int newX = Mathf.RoundToInt(gameObject.transform.position.x);
         int newY = Mathf.RoundToInt(gameObject.transform.position.y);
         transform.position = new Vector2(newX, newY);
-        pushedFrom = Direction.None;
+        directionFromPlayerToObj = Direction.None;
     }
 
-    private void PushedByPlayer()
-    {
-        Vector2 dirToPlayer =  (player.transform.position - transform.position);
-        float distToPlayer = Vector2.SqrMagnitude(dirToPlayer);
-        Vector2 dirToPlayerNormalized = dirToPlayer.normalized;
-        if (distToPlayer < pushDistance)
-        {
-            pushed = true;
-            if (dirToPlayerNormalized == Vector2.up)
-            {
-                pushedFrom = Direction.Up;
-            }
-            else if (dirToPlayerNormalized == Vector2.down)
-            {
-                pushedFrom = Direction.Down;
-            }
-            else if (dirToPlayerNormalized == Vector2.left)
-            {
-                pushedFrom = Direction.Left;
-            }
-            else if (dirToPlayerNormalized == Vector2.right)
-            {
-                pushedFrom = Direction.Right;
-            }
-        }
-    }
+
 }
