@@ -5,16 +5,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    enum Direction { Up, Down, Left, Right };
     //config params
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float moveSnapThreshold = 1f;
 
     //cached refs
-    [SerializeField] Vector3 targetPosition;
-    
+    Vector3 targetPosition;
+    Animator myAnimator;
+    Direction myDirection;
+    SpriteRenderer mySprite;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        myAnimator = GetComponent<Animator>();
+        myDirection = Direction.Down;
+        mySprite = GetComponent<SpriteRenderer>();
         
     }
 
@@ -23,6 +31,64 @@ public class PlayerMovement : MonoBehaviour
     {
         ProcessInputs();
         MovePlayer();
+        AnimatePlayer();
+    }
+
+    private void AnimatePlayer()
+    {
+        switch (myDirection)
+        {
+            case Direction.Down:
+                if (transform.position != targetPosition)
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Walk Down");
+                }
+                else
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Idle Down");
+                }
+                break;
+            case Direction.Up:
+                if (transform.position != targetPosition)
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Walk Up");
+                }
+                else
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Idle Up");
+                }
+                break;
+            case Direction.Left:
+                if (transform.position != targetPosition)
+                {
+                    mySprite.flipX = true;
+                    myAnimator.Play("Player Walk Right");
+                }
+                else
+                {
+                    mySprite.flipX = true;
+                    myAnimator.Play("Player Idle Right");
+                }
+                break;
+            case Direction.Right:
+                if (transform.position != targetPosition)
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Walk Right");
+                }
+                else
+                {
+                    mySprite.flipX = false;
+                    myAnimator.Play("Player Idle Right");
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void MovePlayer()
@@ -33,11 +99,9 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
         }
         var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position );
-        Debug.Log(distanceMag);
         if (distanceMag < moveSnapThreshold)
         {
             SnapToGrid();
-            Debug.Log("Snapping!");
         }
     }
 
@@ -46,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
         int newX = Mathf.RoundToInt(gameObject.transform.position.x);
         int newY = Mathf.RoundToInt(gameObject.transform.position.y);
         transform.position = new Vector2(newX, newY);
-        //targetPosition = transform.position;
     }
 
     private void ProcessInputs()
@@ -56,8 +119,9 @@ public class PlayerMovement : MonoBehaviour
             if (transform.position == targetPosition)
             { 
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
+                if(direction == 1) { myDirection = Direction.Right; }
+                if(direction == -1) { myDirection = Direction.Left; }
                 targetPosition = new Vector2(transform.position.x + direction, transform.position.y);
-                Debug.Log("Horizontal " + targetPosition);
             }
         }
         if(Input.GetAxis("Vertical") != 0)
@@ -65,8 +129,9 @@ public class PlayerMovement : MonoBehaviour
             if (transform.position == targetPosition)
             {
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
+                if (direction == 1) { myDirection = Direction.Up; }
+                if (direction == -1) { myDirection = Direction.Down; }
                 targetPosition = new Vector2(transform.position.x, transform.position.y + direction);
-                Debug.Log("Vertical " + targetPosition);
 
             }
         }
