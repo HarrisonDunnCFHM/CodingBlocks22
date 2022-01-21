@@ -12,6 +12,8 @@ public class PushableObject : MonoBehaviour
     [SerializeField] float moveSpeed = 8f;
     [SerializeField] float moveSnapThreshold = 0.001f;
     [SerializeField] float pushDistance = 1f;
+    [SerializeField] float upperYBound = 2.5f;
+    [SerializeField] float lowerYBound = -5.5f;
 
     //cached refs
     Direction directionFromPlayerToObj;
@@ -101,6 +103,10 @@ public class PushableObject : MonoBehaviour
             {
                 return false;
             }
+        }
+        if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound)
+        {
+            return false;
         }
         return true;
     }

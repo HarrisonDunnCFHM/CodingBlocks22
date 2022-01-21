@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     //config params
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float moveSnapThreshold = 1f;
+    [SerializeField] float upperYBound = 2.5f;
+    [SerializeField] float lowerYBound = -5.5f;
 
     //cached refs
     Vector3 targetPosition;
@@ -33,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         blocked = false;
-
         ProcessInputs();
         AnimatePlayer();
         MovePlayer();
@@ -134,7 +135,12 @@ public class PlayerMovement : MonoBehaviour
         if ( transform.position != targetPosition)
         {
             CheckForObstacle();
-            if (blocked) { targetPosition = transform.position;  return; }
+            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || blocked) 
+            { 
+                targetPosition = transform.position;
+                pushing = true;
+                return; 
+            }
             var direction = targetPosition - transform.position;
             transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
         }
