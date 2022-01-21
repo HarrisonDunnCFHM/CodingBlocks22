@@ -8,6 +8,7 @@ public class PushableObject : MonoBehaviour
     public enum Direction { Up, Down, Left, Right, None};
 
     //config params
+    [SerializeField] bool immovable;
     [SerializeField] float moveSpeed = 8f;
     [SerializeField] float moveSnapThreshold = 0.001f;
     [SerializeField] float pushDistance = 1f;
@@ -32,6 +33,7 @@ public class PushableObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (immovable) { pushable = false; return; }
         CheckPlayerDirection(); //check for direction of this object relative to player
         CheckIfPushable(); //check if there are boxes directly behind this object relative to player
         if (!pushable) { return; }

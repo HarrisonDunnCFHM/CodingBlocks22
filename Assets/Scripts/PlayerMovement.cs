@@ -15,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     Direction myDirection;
     SpriteRenderer mySprite;
-    public bool blocked;
+    bool blocked;
+    bool pushing;
 
 
     // Start is called before the first frame update
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         myDirection = Direction.Down;
         mySprite = GetComponent<SpriteRenderer>();
         blocked = false;
+        pushing = false;
     }
 
     // Update is called once per frame
@@ -33,8 +35,8 @@ public class PlayerMovement : MonoBehaviour
         blocked = false;
 
         ProcessInputs();
-        MovePlayer();
         AnimatePlayer();
+        MovePlayer();
     }
 
     private void AnimatePlayer()
@@ -45,7 +47,16 @@ public class PlayerMovement : MonoBehaviour
                 if (transform.position != targetPosition)
                 {
                     mySprite.flipX = false;
-                    myAnimator.Play("Player Walk Down");
+                    if (pushing)
+                    { 
+                        myAnimator.Play("Player Interact Down");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Walk Down");
+                    }
+               
                 }
                 else
                 {
@@ -57,7 +68,15 @@ public class PlayerMovement : MonoBehaviour
                 if (transform.position != targetPosition)
                 {
                     mySprite.flipX = false;
-                    myAnimator.Play("Player Walk Up");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Up");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Walk Up");
+                    }
                 }
                 else
                 {
@@ -69,7 +88,15 @@ public class PlayerMovement : MonoBehaviour
                 if (transform.position != targetPosition)
                 {
                     mySprite.flipX = true;
-                    myAnimator.Play("Player Walk Right");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Right");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Walk Right");
+                    }
                 }
                 else
                 {
@@ -81,7 +108,15 @@ public class PlayerMovement : MonoBehaviour
                 if (transform.position != targetPosition)
                 {
                     mySprite.flipX = false;
-                    myAnimator.Play("Player Walk Right");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Right");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Walk Right");
+                    }
                 }
                 else
                 {
@@ -98,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ( transform.position != targetPosition)
         {
-            CheckForBlockedMovement();
+            CheckForObstacle();
             if (blocked) { targetPosition = transform.position;  return; }
             var direction = targetPosition - transform.position;
             transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
@@ -110,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckForBlockedMovement()
+    private void CheckForObstacle()
     {
         List<PushableObject> pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         foreach (PushableObject pushable in pushables)
@@ -119,6 +154,11 @@ public class PlayerMovement : MonoBehaviour
             if (!pushable.pushable && targetPosition == pushable.transform.position)
             {
                 blocked = true;
+                pushing = true;
+            }
+            else if (pushable.pushable && targetPosition == pushable.transform.position)
+            {
+                pushing = true;
             }
         }
     }
