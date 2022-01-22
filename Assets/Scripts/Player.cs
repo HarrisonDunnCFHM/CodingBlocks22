@@ -18,12 +18,14 @@ public class Player : MonoBehaviour
     //cached refs
     public Vector3 targetPosition;
     [SerializeField] Animator myAnimator;
-    Direction myDirection;
+    [SerializeField] Direction myDirection;
     [SerializeField] SpriteRenderer mySprite;
     bool blocked;
     bool pushing;
     public bool movementDisabled;
     bool jumping;
+    [SerializeField] int inputFrames = 10;
+    [SerializeField] int currentFrame;
     bool canJump;
     List<PushableObject> pushables;
     Tilemap hazards;
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
         pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         hazards = FindObjectOfType<Tilemap>();
         levelManager = FindObjectOfType<LevelManager>();
+        currentFrame = 0;
     }
 
     // Update is called once per frame
@@ -178,6 +181,7 @@ public class Player : MonoBehaviour
                 transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
             }
         }
+
         var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position );
         if (distanceMag < moveSnapThreshold)
         {
@@ -221,7 +225,11 @@ public class Player : MonoBehaviour
     private void ProcessInputs()
     {
         if (movementDisabled) { return; }
-
+        if (currentFrame > 0)
+        {
+            currentFrame--;
+            return;
+        }
         if (Input.GetAxis("Horizontal") != 0)
         {
             canJump = false;
@@ -229,14 +237,28 @@ public class Player : MonoBehaviour
             { 
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
                 if(direction == 1) 
-                { 
-                    myDirection = Direction.Right;
-                    CheckForClearPath(Vector2.right);
+                {
+                    if (myDirection == Direction.Right)
+                    {
+                        CheckForClearPath(Vector2.right);
+                    }
+                    else
+                    {
+                        myDirection = Direction.Right;
+                        currentFrame = inputFrames;
+                    }
                 }
                 if(direction == -1) 
-                { 
-                    myDirection = Direction.Left;
-                    CheckForClearPath(Vector2.left);
+                {
+                    if (myDirection == Direction.Left)
+                    {
+                        CheckForClearPath(Vector2.left);
+                    }
+                    else
+                    {
+                        myDirection = Direction.Left;
+                        currentFrame = inputFrames;
+                    }
                 }
             }
         }
@@ -248,13 +270,27 @@ public class Player : MonoBehaviour
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
                 if (direction == 1)
                 {
-                    myDirection = Direction.Up;
-                    CheckForClearPath(Vector2.up);
+                    if (myDirection == Direction.Up)
+                    {
+                        CheckForClearPath(Vector2.up);
+                    }
+                    else
+                    {
+                        myDirection = Direction.Up;
+                        currentFrame = inputFrames;
+                    }
                 }
                 if (direction == -1)
                 {
-                    myDirection = Direction.Down;
-                    CheckForClearPath(Vector2.down);
+                    if (myDirection == Direction.Down)
+                    {
+                        CheckForClearPath(Vector2.down);
+                    }
+                    else
+                    {
+                        myDirection = Direction.Down;
+                        currentFrame = inputFrames;
+                    }
                 }
             }
         }

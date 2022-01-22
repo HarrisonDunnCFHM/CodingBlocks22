@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Text winText;
     [SerializeField] Text loseText;
 
+    [SerializeField] int targetFrameRate = 60;
+
 
     //cached refs
     public bool pickupCollected;
@@ -24,6 +26,8 @@ public class LevelManager : MonoBehaviour
         winText.enabled = false;
         loseText.enabled = false;
         player = FindObjectOfType<Player>();
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = targetFrameRate;
     }
 
     // Update is called once per frame

@@ -311,7 +311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 455200748}
   - component: {fileID: 455200747}
-  - component: {fileID: 455200746}
   - component: {fileID: 455200749}
   m_Layer: 0
   m_Name: Player Avatar
@@ -320,28 +319,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &455200746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455200745}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75e2666078cb494880bf88c9e2739fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  moveSnapThreshold: 0.001
-  upperYBound: 8.5
-  lowerYBound: 0.5
-  upperXBound: 0
-  lowerXBound: 0
-  targetPosition: {x: 0, y: 0, z: 0}
-  myAnimator: {fileID: 0}
-  mySprite: {fileID: 0}
-  movementDisabled: 0
 --- !u!212 &455200747
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -622,6 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winText: {fileID: 853536203}
   loseText: {fileID: 1645603718}
+  targetFrameRate: 60
   pickupCollected: 0
 --- !u!4 &586406951
 Transform:
@@ -1085,8 +1063,11 @@ MonoBehaviour:
   lowerXBound: 0
   targetPosition: {x: 0, y: 0, z: 0}
   myAnimator: {fileID: 455200749}
+  myDirection: 0
   mySprite: {fileID: 455200747}
   movementDisabled: 0
+  inputFrames: 5
+  currentFrame: 0
 --- !u!4 &1454177275
 Transform:
   m_ObjectHideFlags: 0
