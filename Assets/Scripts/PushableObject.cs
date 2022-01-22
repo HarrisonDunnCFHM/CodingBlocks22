@@ -18,18 +18,20 @@ public class PushableObject : MonoBehaviour
     //cached refs
     Direction directionFromPlayerToObj;
     Vector3 targetPosition;
-    PlayerMovement player;
+    Player player;
     bool pushed;
     public bool pushable;
     List<PushableObject> pushableObjects;
+    List<Pickup> pickups;
 
     // Start is called before the first frame update
     void Start()
     {
         targetPosition = transform.position;
-        player = FindObjectOfType<PlayerMovement>();
+        player = FindObjectOfType<Player>();
         pushed = false;
         pushableObjects = new List<PushableObject>(FindObjectsOfType<PushableObject>());
+        pickups = new List<Pickup>(FindObjectsOfType<Pickup>());
     }
 
     // Update is called once per frame
@@ -97,6 +99,10 @@ public class PushableObject : MonoBehaviour
 
     private bool CheckOtherBoxes(Vector3 pushDirection)
     {
+        if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound)
+        {
+            return false;
+        }
         foreach (PushableObject pushable in pushableObjects)
         {
             if (transform.position + pushDirection == pushable.transform.position)
@@ -104,9 +110,15 @@ public class PushableObject : MonoBehaviour
                 return false;
             }
         }
-        if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound)
+        foreach (Pickup pickup in pickups)
         {
-            return false;
+            if (pickup != null)
+            {
+                if (transform.position + pushDirection == pickup.transform.position)
+                {
+                    return false;
+                }
+            }
         }
         return true;
     }
