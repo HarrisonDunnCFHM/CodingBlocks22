@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    enum Direction { Up, Down, Left, Right };
+    enum Direction { Up, Down, Left, Right, None };
     //config params
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float moveSnapThreshold = 1f;
@@ -35,9 +35,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //myAnimator = GetComponent<Animator>();
         myDirection = Direction.Down;
-        //mySprite = GetComponent<SpriteRenderer>();
         blocked = false;
         pushing = false;
         movementDisabled = false;
@@ -60,6 +58,7 @@ public class Player : MonoBehaviour
 
     private void AnimatePlayer()
     {
+        //if (movementDisabled) { return; }
         switch (myDirection)
         {
             case Direction.Down:
@@ -364,7 +363,10 @@ public class Player : MonoBehaviour
         Vector3Int positionAsInt = Vector3Int.RoundToInt(transform.position);
         if (hazards.HasTile(positionAsInt) && !jumping)
         {
-            levelManager.TriggerEnding();
+            if (movementDisabled) { return; }
+            myDirection = Direction.None;
+            myAnimator.Play("Player Fall");
+            levelManager.TriggerWinningEnd(false);
         }
     }
 }

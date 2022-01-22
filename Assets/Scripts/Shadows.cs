@@ -34,15 +34,14 @@ public class Shadows : MonoBehaviour
         var distToPlayer = Vector2.Distance(transform.position, player.transform.position);
         if (distToPlayer < transform.localScale.x)
         {
-            levelManager.TriggerEnding();
-            //if (inventorySlot1.sprite == collectableGift)
-            //{
-            //    Debug.Log("you win!");
-            //}
-            //else
-            //{
-            //    Debug.Log("you lose!");
-            //}
+            if (inventorySlot1.sprite == collectableGift)
+            {
+                levelManager.TriggerWinningEnd(true);
+            }
+            else
+            {
+                levelManager.TriggerWinningEnd(false);
+            }
         }
     }
 }

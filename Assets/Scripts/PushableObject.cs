@@ -14,6 +14,7 @@ public class PushableObject : MonoBehaviour
     [SerializeField] float pushDistance = 1f;
     [SerializeField] float upperYBound = 2.5f;
     [SerializeField] float lowerYBound = -5.5f;
+    [SerializeField] ParticleSystem myDust;
 
     //cached refs
     Direction directionFromPlayerToObj;
@@ -164,11 +165,19 @@ public class PushableObject : MonoBehaviour
             if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || !CheckForObstructions(direction))
             {
                 targetPosition = transform.position;
+                if(!myDust.isPlaying)
+            {
+                myDust.Play();
+            }
             }
             pushed = false;
         }
         if (targetPosition != transform.position)
         {
+            if(!myDust.isPlaying)
+            {
+                myDust.Play();
+            }
             transform.Translate(direction.x * Time.deltaTime * moveSpeed, direction.y * Time.deltaTime * moveSpeed, 0);
             var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position);
             if (distanceMag < moveSnapThreshold)

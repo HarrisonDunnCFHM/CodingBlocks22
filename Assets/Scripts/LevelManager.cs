@@ -44,10 +44,10 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void TriggerEnding()
+    public void TriggerWinningEnd(bool ending)
     {
         player.movementDisabled = true;
-        if (pickupCollected)
+        if (ending)
         {
             winText.enabled = true;
         }
