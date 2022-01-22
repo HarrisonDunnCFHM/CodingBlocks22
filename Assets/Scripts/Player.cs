@@ -17,9 +17,9 @@ public class Player : MonoBehaviour
 
     //cached refs
     public Vector3 targetPosition;
-    Animator myAnimator;
+    [SerializeField] Animator myAnimator;
     Direction myDirection;
-    SpriteRenderer mySprite;
+    [SerializeField] SpriteRenderer mySprite;
     bool blocked;
     bool pushing;
     public bool movementDisabled;
@@ -33,9 +33,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myAnimator = GetComponent<Animator>();
+        //myAnimator = GetComponent<Animator>();
         myDirection = Direction.Down;
-        mySprite = GetComponent<SpriteRenderer>();
+        //mySprite = GetComponent<SpriteRenderer>();
         blocked = false;
         pushing = false;
         movementDisabled = false;
@@ -60,10 +60,14 @@ public class Player : MonoBehaviour
         switch (myDirection)
         {
             case Direction.Down:
+                mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
-                    mySprite.flipX = false;
-                    if (pushing)
+                    if (jumping)
+                    {
+                        myAnimator.Play("Player Jump Down");
+                    }
+                    else if (pushing)
                     { 
                         myAnimator.Play("Player Interact Down");
                         pushing = false;
@@ -76,15 +80,18 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    mySprite.flipX = false;
                     myAnimator.Play("Player Idle Down");
                 }
                 break;
             case Direction.Up:
+                mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
-                    mySprite.flipX = false;
-                    if (pushing)
+                    if (jumping)
+                    {
+                        myAnimator.Play("Player Jump Up");
+                    }
+                    else if(pushing)
                     {
                         myAnimator.Play("Player Interact Up");
                         pushing = false;
@@ -96,15 +103,18 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    mySprite.flipX = false;
                     myAnimator.Play("Player Idle Up");
                 }
                 break;
             case Direction.Left:
+                mySprite.flipX = true;
                 if (transform.position != targetPosition)
                 {
-                    mySprite.flipX = true;
-                    if (pushing)
+                    if (jumping)
+                    {
+                        myAnimator.Play("Player Jump Right");
+                    }
+                    else if (pushing)
                     {
                         myAnimator.Play("Player Interact Right");
                         pushing = false;
@@ -116,15 +126,18 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    mySprite.flipX = true;
                     myAnimator.Play("Player Idle Right");
                 }
                 break;
             case Direction.Right:
+                mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
-                    mySprite.flipX = false;
-                    if (pushing)
+                    if (jumping)
+                    {
+                        myAnimator.Play("Player Jump Right");
+                    }
+                    else if (pushing)
                     {
                         myAnimator.Play("Player Interact Right");
                         pushing = false;
@@ -136,7 +149,6 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    mySprite.flipX = false;
                     myAnimator.Play("Player Idle Right");
                 }
                 break;
