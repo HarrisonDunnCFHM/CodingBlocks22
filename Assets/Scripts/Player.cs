@@ -82,7 +82,15 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    myAnimator.Play("Player Idle Down");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Down");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Idle Down");
+                    }
                 }
                 break;
             case Direction.Up:
@@ -105,7 +113,15 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    myAnimator.Play("Player Idle Up");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Up");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Idle Up");
+                    }
                 }
                 break;
             case Direction.Left:
@@ -128,7 +144,15 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    myAnimator.Play("Player Idle Right");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Right");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Idle Right");
+                    }
                 }
                 break;
             case Direction.Right:
@@ -151,7 +175,15 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    myAnimator.Play("Player Idle Right");
+                    if (pushing)
+                    {
+                        myAnimator.Play("Player Interact Right");
+                        pushing = false;
+                    }
+                    else
+                    {
+                        myAnimator.Play("Player Idle Right");
+                    }
                 }
                 break;
             default:
@@ -192,7 +224,7 @@ public class Player : MonoBehaviour
     {
         foreach (PushableObject pushable in pushables)
         {
-            
+            if (pushable == null) { break; }
             if (jumping && targetPosition == pushable.transform.position)
             {
                 blocked = true;
@@ -322,9 +354,17 @@ public class Player : MonoBehaviour
     private void CheckForClearPath(Vector2 directionToCheck)
     {
         targetPosition = (Vector2)transform.position + directionToCheck;
-        if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) { Debug.Log("out of bounds!"); targetPosition = transform.position; return; }
+        if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) 
+        { 
+            targetPosition = transform.position;
+            blocked = true;
+            pushing = true;
+            jumping = false;
+            return; 
+        }
         foreach (PushableObject pushable in pushables)
         {
+            if (pushable == null) { break; }
             if ((Vector2)targetPosition == (Vector2)pushable.transform.position)
             {
                 if (!pushable.pushable || jumping)

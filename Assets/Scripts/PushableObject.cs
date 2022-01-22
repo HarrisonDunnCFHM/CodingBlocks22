@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PushableObject : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class PushableObject : MonoBehaviour
     public bool pushable;
     List<PushableObject> pushableObjects;
     List<Pickup> pickups;
+    Tilemap hazards;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class PushableObject : MonoBehaviour
         pushed = false;
         pushableObjects = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         pickups = new List<Pickup>(FindObjectsOfType<Pickup>());
+        hazards = FindObjectOfType<Tilemap>();
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class PushableObject : MonoBehaviour
         if (!pushable) { return; }
         PushedByPlayer(); //check if box is pushed
         MoveWhenPushed(); //actually move box
+        SinkIntoHazard();
     }
 
     private void CheckPlayerDirection()
@@ -109,6 +113,7 @@ public class PushableObject : MonoBehaviour
         }
         foreach (PushableObject pushable in pushableObjects)
         {
+            if (pushable == null) { break; }
             if (transform.position + pushDirection == pushable.transform.position)
             {
                 return false;
@@ -195,5 +200,13 @@ public class PushableObject : MonoBehaviour
         //pushed = false;
     }
 
+    private void SinkIntoHazard()
+    {
+        if(hazards.HasTile(Vector3Int.RoundToInt(transform.position)))
+        {
+            hazards.SetTile(Vector3Int.RoundToInt(transform.position),null);
+            Destroy(gameObject);
+        }
+    }
 
 }

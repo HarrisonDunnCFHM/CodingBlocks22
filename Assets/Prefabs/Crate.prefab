@@ -549,8 +549,8 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2617994
-      minScalar: -0.2617994
+      scalar: 0.08726646
+      minScalar: -0.08726646
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -981,8 +981,8 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 0.14284952
+          time: 0.0031152647
+          value: 0.4821355
           inSlope: 0.8927509
           outSlope: 0.8927509
           tangentMode: 0
@@ -990,8 +990,17 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.19365147
         - serializedVersion: 3
-          time: 0.98130494
-          value: 0.44642913
+          time: 0.46430728
+          value: 0.7180725
+          inSlope: 0.21358448
+          outSlope: 0.21358448
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0.75893295
           inSlope: 0.05118341
           outSlope: 0.05118341
           tangentMode: 0
@@ -1243,8 +1252,8 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
-      minScalar: -6.283185
+      scalar: 0.08726646
+      minScalar: -0.08726646
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4902,7 +4911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   immovable: 0
-  moveSpeed: 10
+  moveSpeed: 8
   moveSnapThreshold: 0.1
   pushDistance: 0.4
   upperYBound: 8.5

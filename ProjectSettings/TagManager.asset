@@ -53,6 +53,9 @@ TagManager:
   - name: Hazards
     uniqueID: 2084801029
     locked: 0
+  - name: Effects
+    uniqueID: 2069424143
+    locked: 0
   - name: Objects Above Player
     uniqueID: 2974178311
     locked: 0
@@ -61,9 +64,6 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2257464275
-    locked: 0
-  - name: Effects
-    uniqueID: 2069424143
     locked: 0
   - name: Objects Below Player
     uniqueID: 741209335
