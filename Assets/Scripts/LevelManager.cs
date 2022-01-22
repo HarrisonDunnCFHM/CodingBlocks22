@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     //cached refs
     public bool pickupCollected;
     Player player;
+    Shadows shadow;
 
     
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class LevelManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = targetFrameRate;
+        shadow = FindObjectOfType<Shadows>();
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class LevelManager : MonoBehaviour
         if (ending)
         {
             winText.enabled = true;
+            shadow.revealSelf = true;
         }
         else
         {
