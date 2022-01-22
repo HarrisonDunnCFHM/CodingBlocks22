@@ -11,14 +11,20 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSnapThreshold = 1f;
     [SerializeField] float upperYBound = 2.5f;
     [SerializeField] float lowerYBound = -5.5f;
+    [SerializeField] float upperXBound;
+    [SerializeField] float lowerXBound;
 
     //cached refs
-    Vector3 targetPosition;
+    public Vector3 targetPosition;
     Animator myAnimator;
     Direction myDirection;
     SpriteRenderer mySprite;
     bool blocked;
     bool pushing;
+    public bool movementDisabled;
+    bool jumping;
+    bool canJump;
+    List<PushableObject> pushables;
 
 
     // Start is called before the first frame update
@@ -29,6 +35,9 @@ public class Player : MonoBehaviour
         mySprite = GetComponent<SpriteRenderer>();
         blocked = false;
         pushing = false;
+        movementDisabled = false;
+        targetPosition = transform.position;
+        pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
     }
 
     // Update is called once per frame
@@ -142,7 +151,14 @@ public class Player : MonoBehaviour
                 return; 
             }
             var direction = targetPosition - transform.position;
-            transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
+            if (jumping)
+            {
+                transform.Translate(direction.normalized * moveSpeed * 2 * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(direction.normalized * moveSpeed * Time.deltaTime);
+            }
         }
         var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position );
         if (distanceMag < moveSnapThreshold)
@@ -153,11 +169,16 @@ public class Player : MonoBehaviour
 
     private void CheckForObstacle()
     {
-        List<PushableObject> pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         foreach (PushableObject pushable in pushables)
         {
-            var distToPlayer = Vector2.SqrMagnitude(pushable.transform.position - transform.position);
-            if (!pushable.pushable && targetPosition == pushable.transform.position)
+            
+            if (jumping && targetPosition == pushable.transform.position)
+            {
+                blocked = true;
+                pushing = true;
+                jumping = false;
+            }
+            else if (!pushable.pushable && targetPosition == pushable.transform.position)
             {
                 blocked = true;
                 pushing = true;
@@ -174,31 +195,110 @@ public class Player : MonoBehaviour
         int newX = Mathf.RoundToInt(gameObject.transform.position.x);
         int newY = Mathf.RoundToInt(gameObject.transform.position.y);
         transform.position = new Vector2(newX, newY);
+        targetPosition = transform.position;
+        jumping = false;
+        canJump = true;
     }
 
     private void ProcessInputs()
     {
+        if (movementDisabled) { return; }
+
         if (Input.GetAxis("Horizontal") != 0)
         {
+            canJump = false;
             if (transform.position == targetPosition)
             { 
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
-                if(direction == 1) { myDirection = Direction.Right; }
-                if(direction == -1) { myDirection = Direction.Left; }
-                targetPosition = new Vector2(transform.position.x + direction, transform.position.y);
+                if(direction == 1) 
+                { 
+                    myDirection = Direction.Right;
+                    CheckForClearPath(Vector2.right);
+                }
+                if(direction == -1) 
+                { 
+                    myDirection = Direction.Left;
+                    CheckForClearPath(Vector2.left);
+                }
             }
         }
         if(Input.GetAxis("Vertical") != 0)
         {
+            canJump = false;
             if (transform.position == targetPosition)
             {
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
-                if (direction == 1) { myDirection = Direction.Up; }
-                if (direction == -1) { myDirection = Direction.Down; }
-                targetPosition = new Vector2(transform.position.x, transform.position.y + direction);
-
+                if (direction == 1)
+                {
+                    myDirection = Direction.Up;
+                    CheckForClearPath(Vector2.up);
+                }
+                if (direction == -1)
+                {
+                    myDirection = Direction.Down;
+                    CheckForClearPath(Vector2.down);
+                }
             }
         }
-      
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (!canJump) { return; }
+            Debug.Log("jumpy jump");
+            canJump = false;
+            jumping = true;
+            switch (myDirection)
+            {
+                case Direction.Up:
+                    CheckForClearPath(Vector2.up);
+                    break;
+                case Direction.Down:
+                    CheckForClearPath(Vector2.down);
+                    break;
+                case Direction.Left:
+                    CheckForClearPath(Vector2.left);
+                    break;
+                case Direction.Right:
+                    CheckForClearPath(Vector2.right);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void CheckForClearPath(Vector2 directionToCheck)
+    {
+        targetPosition = (Vector2)transform.position + directionToCheck;
+        if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) { Debug.Log("out of bounds!"); targetPosition = transform.position; return; }
+        foreach (PushableObject pushable in pushables)
+        {
+            if ((Vector2)targetPosition == (Vector2)pushable.transform.position)
+            {
+                if (!pushable.pushable || jumping)
+                {
+                    targetPosition = transform.position;
+                    blocked = true;
+                    pushing = true;
+                    jumping = false;
+                    return;
+                }
+            }
+        }
+        if (jumping)
+        {
+            targetPosition = (Vector2)targetPosition + directionToCheck;
+            if (targetPosition.y > upperXBound || targetPosition.y < lowerYBound) { return; }
+            foreach (PushableObject pushable in pushables)
+            {
+                if ((Vector2)targetPosition == (Vector2)pushable.transform.position)
+                {
+                    targetPosition = transform.position;
+                    blocked = true;
+                    pushing = true;
+                    jumping = false;
+                    return;
+                }
+            }
+        }
     }
 }

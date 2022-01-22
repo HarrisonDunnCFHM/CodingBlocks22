@@ -69,35 +69,38 @@ public class PushableObject : MonoBehaviour
 
     private void CheckIfPushable()
     {
-        Vector3 checkVector;
-        switch (directionFromPlayerToObj)
+        if (targetPosition == transform.position)
         {
-            case Direction.Up:
-                checkVector = new Vector3(0f, -1f, 0f);
-                pushable = CheckOtherBoxes(checkVector);
-                break;
-            case Direction.Down:
-                checkVector = new Vector3(0f, 1f, 0f);
-                pushable = CheckOtherBoxes(checkVector); 
-                break;
-            case Direction.Right:
-                checkVector = new Vector3(-1f, 0f, 0f);
-                pushable = CheckOtherBoxes(checkVector); 
-                break;
-            case Direction.Left:
-                checkVector = new Vector3(1f, 0f, 0f);
-                pushable = CheckOtherBoxes(checkVector); 
-                break;
-            case Direction.None:
-                checkVector = new Vector3(0f, 0f, 0f);
-                pushable = CheckOtherBoxes(checkVector); 
-                break;
-            default:
-                break;
+            Vector3 checkVector;
+            switch (directionFromPlayerToObj)
+            {
+                case Direction.Up:
+                    checkVector = new Vector3(0f, -1f, 0f);
+                    pushable = CheckForObstructions(checkVector);
+                    break;
+                case Direction.Down:
+                    checkVector = new Vector3(0f, 1f, 0f);
+                    pushable = CheckForObstructions(checkVector);
+                    break;
+                case Direction.Right:
+                    checkVector = new Vector3(-1f, 0f, 0f);
+                    pushable = CheckForObstructions(checkVector);
+                    break;
+                case Direction.Left:
+                    checkVector = new Vector3(1f, 0f, 0f);
+                    pushable = CheckForObstructions(checkVector);
+                    break;
+                case Direction.None:
+                    checkVector = new Vector3(0f, 0f, 0f);
+                    pushable = CheckForObstructions(checkVector);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    private bool CheckOtherBoxes(Vector3 pushDirection)
+    private bool CheckForObstructions(Vector3 pushDirection)
     {
         if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound)
         {
@@ -158,6 +161,10 @@ public class PushableObject : MonoBehaviour
         if (pushed)
         {
             targetPosition = transform.position + (Vector3)direction;
+            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || !CheckForObstructions(direction))
+            {
+                targetPosition = transform.position;
+            }
             pushed = false;
         }
         if (targetPosition != transform.position)
@@ -176,6 +183,7 @@ public class PushableObject : MonoBehaviour
         int newY = Mathf.RoundToInt(gameObject.transform.position.y);
         transform.position = new Vector2(newX, newY);
         directionFromPlayerToObj = Direction.None;
+        //pushed = false;
     }
 
 

@@ -11,12 +11,15 @@ public class Pickup : MonoBehaviour
     //cached refs
     Player player;
     Sprite mySprite;
+    LevelManager levelManager;
     
     // Start is called before the first frame update
     void Start()
     {
+        pickedUpObject.enabled = false;
         player = FindObjectOfType<Player>();
         mySprite = GetComponent<SpriteRenderer>().sprite;
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
@@ -29,6 +32,8 @@ public class Pickup : MonoBehaviour
     {
         if (player.transform.position == transform.position)
         {
+            pickedUpObject.enabled = true;
+            levelManager.pickupCollected = true;
             pickedUpObject.sprite = mySprite;
             Destroy(gameObject);
         }
