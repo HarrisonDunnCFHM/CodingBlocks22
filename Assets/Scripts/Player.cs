@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
     bool jumping;
     bool canJump;
     List<PushableObject> pushables;
+    Tilemap hazards;
+    LevelManager levelManager;
 
 
     // Start is called before the first frame update
@@ -38,6 +41,8 @@ public class Player : MonoBehaviour
         movementDisabled = false;
         targetPosition = transform.position;
         pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
+        hazards = FindObjectOfType<Tilemap>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
         ProcessInputs();
         AnimatePlayer();
         MovePlayer();
+        CheckForHazard();
     }
 
     private void AnimatePlayer()
@@ -286,7 +292,10 @@ public class Player : MonoBehaviour
         }
         if (jumping)
         {
-            targetPosition = (Vector2)targetPosition + directionToCheck;
+            while (hazards.HasTile(Vector3Int.RoundToInt(targetPosition)))
+            {
+                targetPosition = (Vector2)targetPosition + directionToCheck;
+            }
             if (targetPosition.y > upperXBound || targetPosition.y < lowerYBound) { return; }
             foreach (PushableObject pushable in pushables)
             {
@@ -299,6 +308,15 @@ public class Player : MonoBehaviour
                     return;
                 }
             }
+        }
+    }
+
+    private void CheckForHazard()
+    {
+        Vector3Int positionAsInt = Vector3Int.RoundToInt(transform.position);
+        if (hazards.HasTile(positionAsInt) && !jumping)
+        {
+            levelManager.TriggerEnding();
         }
     }
 }
