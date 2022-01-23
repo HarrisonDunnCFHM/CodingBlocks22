@@ -21,6 +21,12 @@ public class Player : MonoBehaviour
     [SerializeField] int inputFrames = 10;
     [SerializeField] int currentFrame;
     [SerializeField] bool horizontalMoveOnly;
+    [SerializeField] GameObject myTorch;
+
+    //unlocks 
+    bool unlockedStrength;
+    bool unlockedTorch;
+    bool unlockedJump;
 
     //cached refs
     Vector3 targetPosition;
@@ -33,15 +39,14 @@ public class Player : MonoBehaviour
     LevelManager levelManager;
     AudioManager audioManager;
     public bool levelCompleted;
+    GameData gameData;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //myDirection = Direction.Down;
         blocked = false;
         pushing = false;
-        //movementDisabled = false;
         targetPosition = transform.position;
         pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         hazards = FindObjectOfType<Tilemap>();
@@ -49,6 +54,11 @@ public class Player : MonoBehaviour
         currentFrame = 0;
         audioManager = FindObjectOfType<AudioManager>();
         levelCompleted = false;
+        gameData = FindObjectOfType<GameData>();
+        unlockedStrength = gameData.unlockedStrength;
+        unlockedTorch = gameData.unlockedTorch;
+        unlockedJump = gameData.unlockedJump;
+        if (!unlockedTorch) { myTorch.SetActive(false); }
     }
 
     // Update is called once per frame
@@ -235,6 +245,7 @@ public class Player : MonoBehaviour
 
     private void CheckForObstacle()
     {
+        
         foreach (PushableObject pushable in pushables)
         {
             if (pushable == null) { break; }
@@ -251,7 +262,13 @@ public class Player : MonoBehaviour
             }
             else if (pushable.pushable && targetPosition == pushable.transform.position)
             {
-                pushing = true;
+                if (!unlockedStrength)
+                {
+                    blocked = true;
+                    pushing = true;
+                    jumping = false;
+                }
+                else { pushing = true; }
             }
         }
     }
@@ -341,6 +358,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump"))
         {
+            if(!unlockedJump) { return; }
             if (!canJump) { return; }
             Debug.Log("jumpy jump");
             canJump = false;
