@@ -44,8 +44,9 @@ public class ExitLevel : MonoBehaviour
         if (levelManager.levelWon && myLight.intensity < lightMaxIntensity)
         {
             myLight.intensity += lightFadeSpeed * Time.deltaTime;
+            exitActive = true;
+            player.levelCompleted = true;
         }
-        exitActive = true;
     }
 
     private void TriggerEndLevel()

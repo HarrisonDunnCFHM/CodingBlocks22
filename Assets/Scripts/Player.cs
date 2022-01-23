@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    enum PlayerDirection { Up, Down, Left, Right, None };
+    public enum PlayerDirection { Up, Down, Left, Right, None };
     //config params
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float moveSnapThreshold = 1f;
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] float lowerXBound;
     public bool movementDisabled;
     [SerializeField] Animator myAnimator;
-    [SerializeField] PlayerDirection myDirection;
+    public PlayerDirection myDirection;
     [SerializeField] SpriteRenderer mySprite;
     [SerializeField] int inputFrames = 10;
     [SerializeField] int currentFrame;
@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     Tilemap hazards;
     LevelManager levelManager;
     AudioManager audioManager;
+    public bool levelCompleted;
 
 
     // Start is called before the first frame update
@@ -47,16 +48,25 @@ public class Player : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
         currentFrame = 0;
         audioManager = FindObjectOfType<AudioManager>();
+        levelCompleted = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateBounds();
         blocked = false;
         ProcessInputs();
         AnimatePlayer();
         MovePlayer();
         CheckForHazard();
+    }
+
+    private void UpdateBounds()
+    {
+        float cameraWidth = Camera.main.orthographicSize * 2 * Camera.main.aspect;
+        upperXBound = Camera.main.transform.position.x + (cameraWidth / 2) + Convert.ToInt32(levelCompleted);
+        lowerXBound = Camera.main.transform.position.x - (cameraWidth / 2) - 1;
     }
 
     private void AnimatePlayer()
@@ -199,7 +209,7 @@ public class Player : MonoBehaviour
         if ( transform.position != targetPosition)
         {
             CheckForObstacle();
-            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || blocked) 
+            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || targetPosition.x > upperXBound || targetPosition.x < lowerYBound || blocked) 
             { 
                 targetPosition = transform.position;
                 pushing = true;
@@ -387,7 +397,7 @@ public class Player : MonoBehaviour
             {
                 targetPosition = (Vector2)targetPosition + directionToCheck;
             }
-            if (targetPosition.y > upperXBound || targetPosition.y < lowerYBound) { return; }
+            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) { return; }
             foreach (PushableObject pushable in pushables)
             {
                 if ((Vector2)targetPosition == (Vector2)pushable.transform.position)
