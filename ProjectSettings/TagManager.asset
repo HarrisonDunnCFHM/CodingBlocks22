@@ -71,3 +71,9 @@ TagManager:
   - name: Foreground Scenery
     uniqueID: 837216841
     locked: 0
+  - name: Fade
+    uniqueID: 1948364271
+    locked: 0
+  - name: UI
+    uniqueID: 371024365
+    locked: 0

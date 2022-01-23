@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     public bool pickupCollected;
     Player player;
     Shadows shadow;
+    Fade fadeLevel;
 
     
     // Start is called before the first frame update
@@ -30,6 +31,8 @@ public class LevelManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = targetFrameRate;
         shadow = FindObjectOfType<Shadows>();
+        fadeLevel = FindObjectOfType<Fade>();
+        fadeLevel.fadeIn = true;
     }
 
     // Update is called once per frame
@@ -57,6 +60,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             loseText.enabled = true;
+            fadeLevel.fadeOut = true;
         }
     }
 }
