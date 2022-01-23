@@ -56,6 +56,23 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void LoadOptionsScene()
+    {
+        int optionsIndex = SceneManager.sceneCountInBuildSettings - 1;
+        SceneManager.LoadScene(optionsIndex);
+    }
+
+    public void LoadCreditsScene()
+    {
+        int optionsIndex = SceneManager.sceneCountInBuildSettings - 2;
+        SceneManager.LoadScene(optionsIndex);
+    }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void TriggerWinningEnd(bool ending)
     {
         if (ending)
@@ -69,6 +86,7 @@ public class LevelManager : MonoBehaviour
             player.movementDisabled = true;
             loseText.enabled = true;
             winText.enabled = false;
+            fadeLevel.fadeIn = false;
             fadeLevel.fadeOut = true;
             levelWon = false;
         }

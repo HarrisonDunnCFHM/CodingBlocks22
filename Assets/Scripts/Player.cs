@@ -30,20 +30,22 @@ public class Player : MonoBehaviour
     List<PushableObject> pushables;
     Tilemap hazards;
     LevelManager levelManager;
+    AudioManager audioManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        myDirection = Direction.Down;
+        //myDirection = Direction.Down;
         blocked = false;
         pushing = false;
-        movementDisabled = false;
+        //movementDisabled = false;
         targetPosition = transform.position;
         pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         hazards = FindObjectOfType<Tilemap>();
         levelManager = FindObjectOfType<LevelManager>();
         currentFrame = 0;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -400,10 +402,10 @@ public class Player : MonoBehaviour
 
     private void CheckForHazard()
     {
+        if (movementDisabled) { return; }
         Vector3Int positionAsInt = Vector3Int.RoundToInt(transform.position);
         if (hazards.HasTile(positionAsInt) && !jumping)
         {
-            if (movementDisabled) { return; }
             myDirection = Direction.None;
             myAnimator.Play("Player Fall");
             levelManager.TriggerWinningEnd(false);

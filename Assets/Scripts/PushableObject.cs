@@ -26,6 +26,7 @@ public class PushableObject : MonoBehaviour
     List<PushableObject> pushableObjects;
     List<Pickup> pickups;
     Tilemap hazards;
+    AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class PushableObject : MonoBehaviour
         pushableObjects = new List<PushableObject>(FindObjectsOfType<PushableObject>());
         pickups = new List<Pickup>(FindObjectsOfType<Pickup>());
         hazards = FindObjectOfType<Tilemap>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame

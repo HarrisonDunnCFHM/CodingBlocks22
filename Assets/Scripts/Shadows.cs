@@ -17,6 +17,7 @@ public class Shadows : MonoBehaviour
     LevelManager levelManager;
     SpriteRenderer myRenderer;
     public bool revealSelf;
+    AudioManager audioManager;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class Shadows : MonoBehaviour
         player = FindObjectOfType<Player>();
         levelManager = FindObjectOfType<LevelManager>();
         myRenderer = GetComponent<SpriteRenderer>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
