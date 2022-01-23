@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
 
     //cached refs
     public bool pickupCollected;
+    public bool levelWon;
     Player player;
     Shadows shadow;
     Fade fadeLevel;
@@ -33,6 +34,7 @@ public class LevelManager : MonoBehaviour
         shadow = FindObjectOfType<Shadows>();
         fadeLevel = FindObjectOfType<Fade>();
         fadeLevel.fadeIn = true;
+        levelWon = false;
     }
 
     // Update is called once per frame
@@ -49,18 +51,26 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void TriggerWinningEnd(bool ending)
     {
-        player.movementDisabled = true;
         if (ending)
         {
             winText.enabled = true;
             shadow.revealSelf = true;
+            levelWon = true;
         }
         else
         {
+            player.movementDisabled = true;
             loseText.enabled = true;
+            winText.enabled = false;
             fadeLevel.fadeOut = true;
+            levelWon = false;
         }
     }
 }

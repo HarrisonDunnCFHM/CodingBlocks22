@@ -16,7 +16,7 @@ public class Fade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fadeIn = false;
+        fadeIn = true;
         fadeOut = false;
         myRenderer = GetComponent<SpriteRenderer>();
         myRenderer.color = new Color (myRenderer.color.r, myRenderer.color.g, myRenderer.color.b,1);
