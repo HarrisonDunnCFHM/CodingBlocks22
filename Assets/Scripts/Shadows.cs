@@ -11,7 +11,6 @@ public class Shadows : MonoBehaviour
     [SerializeField] float revealRate = 1f;
 
     //cached refs
-    Sprite inventorySprite;
     Sprite collectableGift;
     Player player;
     LevelManager levelManager;

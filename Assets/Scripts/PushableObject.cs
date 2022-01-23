@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class PushableObject : MonoBehaviour
 {
-    public enum Direction { Up, Down, Left, Right, None};
+    enum ObjectDirection { Up, Down, Left, Right, None};
 
     //config params
     [SerializeField] bool immovable;
@@ -16,13 +16,13 @@ public class PushableObject : MonoBehaviour
     [SerializeField] float upperYBound = 2.5f;
     [SerializeField] float lowerYBound = -5.5f;
     [SerializeField] ParticleSystem myDust;
+    public bool pushable;
 
     //cached refs
-    Direction directionFromPlayerToObj;
+    ObjectDirection directionFromPlayerToObj;
     Vector3 targetPosition;
     Player player;
     bool pushed;
-    public bool pushable;
     List<PushableObject> pushableObjects;
     List<Pickup> pickups;
     Tilemap hazards;
@@ -58,19 +58,19 @@ public class PushableObject : MonoBehaviour
         Vector2 dirToPlayerNormalized = dirToPlayer.normalized;
         if (dirToPlayerNormalized == Vector2.up)
         {
-            directionFromPlayerToObj = Direction.Up;
+            directionFromPlayerToObj = ObjectDirection.Up;
         }
         else if (dirToPlayerNormalized == Vector2.down)
         {
-            directionFromPlayerToObj = Direction.Down;
+            directionFromPlayerToObj = ObjectDirection.Down;
         }
         else if (dirToPlayerNormalized == Vector2.left)
         {
-            directionFromPlayerToObj = Direction.Left;
+            directionFromPlayerToObj = ObjectDirection.Left;
         }
         else if (dirToPlayerNormalized == Vector2.right)
         {
-            directionFromPlayerToObj = Direction.Right;
+            directionFromPlayerToObj = ObjectDirection.Right;
         }
     }
 
@@ -81,23 +81,23 @@ public class PushableObject : MonoBehaviour
             Vector3 checkVector;
             switch (directionFromPlayerToObj)
             {
-                case Direction.Up:
+                case ObjectDirection.Up:
                     checkVector = new Vector3(0f, -1f, 0f);
                     pushable = CheckForObstructions(checkVector);
                     break;
-                case Direction.Down:
+                case ObjectDirection.Down:
                     checkVector = new Vector3(0f, 1f, 0f);
                     pushable = CheckForObstructions(checkVector);
                     break;
-                case Direction.Right:
+                case ObjectDirection.Right:
                     checkVector = new Vector3(-1f, 0f, 0f);
                     pushable = CheckForObstructions(checkVector);
                     break;
-                case Direction.Left:
+                case ObjectDirection.Left:
                     checkVector = new Vector3(1f, 0f, 0f);
                     pushable = CheckForObstructions(checkVector);
                     break;
-                case Direction.None:
+                case ObjectDirection.None:
                     checkVector = new Vector3(0f, 0f, 0f);
                     pushable = CheckForObstructions(checkVector);
                     break;
@@ -147,19 +147,19 @@ public class PushableObject : MonoBehaviour
         Vector2 direction;
         switch (directionFromPlayerToObj)
         {
-            case Direction.Up:
+            case ObjectDirection.Up:
                 direction = Vector2.down;
                 break;
-            case Direction.Down:
+            case ObjectDirection.Down:
                 direction = Vector2.up;
                 break;
-            case Direction.Right:
+            case ObjectDirection.Right:
                 direction = Vector2.left;
                 break;
-            case Direction.Left:
+            case ObjectDirection.Left:
                 direction = Vector2.right;
                 break;
-            case Direction.None:
+            case ObjectDirection.None:
                 direction = new Vector2(0f, 0f);
                 break;
             default:
@@ -198,7 +198,7 @@ public class PushableObject : MonoBehaviour
         int newX = Mathf.RoundToInt(gameObject.transform.position.x);
         int newY = Mathf.RoundToInt(gameObject.transform.position.y);
         transform.position = new Vector2(newX, newY);
-        directionFromPlayerToObj = Direction.None;
+        directionFromPlayerToObj = ObjectDirection.None;
         //pushed = false;
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    enum Direction { Up, Down, Left, Right, None };
+    enum PlayerDirection { Up, Down, Left, Right, None };
     //config params
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] float moveSnapThreshold = 1f;
@@ -14,18 +14,18 @@ public class Player : MonoBehaviour
     [SerializeField] float lowerYBound = -5.5f;
     [SerializeField] float upperXBound;
     [SerializeField] float lowerXBound;
-
-    //cached refs
-    public Vector3 targetPosition;
-    [SerializeField] Animator myAnimator;
-    [SerializeField] Direction myDirection;
-    [SerializeField] SpriteRenderer mySprite;
-    bool blocked;
-    bool pushing;
     public bool movementDisabled;
-    bool jumping;
+    [SerializeField] Animator myAnimator;
+    [SerializeField] PlayerDirection myDirection;
+    [SerializeField] SpriteRenderer mySprite;
     [SerializeField] int inputFrames = 10;
     [SerializeField] int currentFrame;
+
+    //cached refs
+    Vector3 targetPosition;
+    bool blocked;
+    bool pushing;
+    bool jumping;
     bool canJump;
     List<PushableObject> pushables;
     Tilemap hazards;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         //if (movementDisabled) { return; }
         switch (myDirection)
         {
-            case Direction.Down:
+            case PlayerDirection.Down:
                 mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
                     }
                 }
                 break;
-            case Direction.Up:
+            case PlayerDirection.Up:
                 mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
                     }
                 }
                 break;
-            case Direction.Left:
+            case PlayerDirection.Left:
                 mySprite.flipX = true;
                 if (transform.position != targetPosition)
                 {
@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
                     }
                 }
                 break;
-            case Direction.Right:
+            case PlayerDirection.Right:
                 mySprite.flipX = false;
                 if (transform.position != targetPosition)
                 {
@@ -271,25 +271,25 @@ public class Player : MonoBehaviour
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
                 if(direction == 1) 
                 {
-                    if (myDirection == Direction.Right)
+                    if (myDirection == PlayerDirection.Right)
                     {
                         CheckForClearPath(Vector2.right);
                     }
                     else
                     {
-                        myDirection = Direction.Right;
+                        myDirection = PlayerDirection.Right;
                         currentFrame = inputFrames;
                     }
                 }
                 if(direction == -1) 
                 {
-                    if (myDirection == Direction.Left)
+                    if (myDirection == PlayerDirection.Left)
                     {
                         CheckForClearPath(Vector2.left);
                     }
                     else
                     {
-                        myDirection = Direction.Left;
+                        myDirection = PlayerDirection.Left;
                         currentFrame = inputFrames;
                     }
                 }
@@ -303,25 +303,25 @@ public class Player : MonoBehaviour
                 int direction = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
                 if (direction == 1)
                 {
-                    if (myDirection == Direction.Up)
+                    if (myDirection == PlayerDirection.Up)
                     {
                         CheckForClearPath(Vector2.up);
                     }
                     else
                     {
-                        myDirection = Direction.Up;
+                        myDirection = PlayerDirection.Up;
                         currentFrame = inputFrames;
                     }
                 }
                 if (direction == -1)
                 {
-                    if (myDirection == Direction.Down)
+                    if (myDirection == PlayerDirection.Down)
                     {
                         CheckForClearPath(Vector2.down);
                     }
                     else
                     {
-                        myDirection = Direction.Down;
+                        myDirection = PlayerDirection.Down;
                         currentFrame = inputFrames;
                     }
                 }
@@ -335,16 +335,16 @@ public class Player : MonoBehaviour
             jumping = true;
             switch (myDirection)
             {
-                case Direction.Up:
+                case PlayerDirection.Up:
                     CheckForClearPath(Vector2.up);
                     break;
-                case Direction.Down:
+                case PlayerDirection.Down:
                     CheckForClearPath(Vector2.down);
                     break;
-                case Direction.Left:
+                case PlayerDirection.Left:
                     CheckForClearPath(Vector2.left);
                     break;
-                case Direction.Right:
+                case PlayerDirection.Right:
                     CheckForClearPath(Vector2.right);
                     break;
                 default:
@@ -406,7 +406,7 @@ public class Player : MonoBehaviour
         Vector3Int positionAsInt = Vector3Int.RoundToInt(transform.position);
         if (hazards.HasTile(positionAsInt) && !jumping)
         {
-            myDirection = Direction.None;
+            myDirection = PlayerDirection.None;
             myAnimator.Play("Player Fall");
             levelManager.TriggerWinningEnd(false);
         }
