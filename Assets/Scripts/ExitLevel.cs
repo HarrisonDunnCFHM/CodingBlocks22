@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.UI;
 
 
 public class ExitLevel : MonoBehaviour
@@ -10,6 +11,7 @@ public class ExitLevel : MonoBehaviour
     //config params
     [SerializeField] float lightFadeSpeed = .4f;
     [SerializeField] float lightMaxIntensity = 2f;
+    [SerializeField] Text endLevelText;
 
     //cached refs
     Player player;
@@ -27,6 +29,7 @@ public class ExitLevel : MonoBehaviour
         myLight.intensity = 0;
         exitActive = false;
         fade = FindObjectOfType<Fade>();
+        endLevelText.enabled = false;
     }
 
     // Update is called once per frame
@@ -53,6 +56,7 @@ public class ExitLevel : MonoBehaviour
             {
                 fade.fadeOut = true;
                 player.movementDisabled = true;
+                endLevelText.enabled = true;
                 if (Input.GetMouseButtonDown(0))
                 {
                     levelManager.LoadNextLevel();

@@ -87,3 +87,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightFadeSpeed: 0.4
   lightMaxIntensity: 2
+  endLevelText: {fileID: 0}

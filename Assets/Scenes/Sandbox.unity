@@ -766,6 +766,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793176720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 793176720, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+  m_PrefabInstance: {fileID: 476555404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &871769823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2381,6 +2392,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467963632459534358, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
+      propertyPath: endLevelText
+      value: 
+      objectReference: {fileID: 793176720}
     - target: {fileID: 5467963632459534359, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
       propertyPath: m_Name
       value: Level Exit

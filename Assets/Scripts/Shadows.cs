@@ -42,6 +42,7 @@ public class Shadows : MonoBehaviour
             if (inventorySlot1.sprite == collectableGift)
             {
                 levelManager.TriggerWinningEnd(true);
+                inventorySlot1.enabled = false;
             }
             else
             {
