@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] SpriteRenderer mySprite;
     [SerializeField] int inputFrames = 10;
     [SerializeField] int currentFrame;
+    [SerializeField] bool horizontalMoveOnly;
 
     //cached refs
     Vector3 targetPosition;
@@ -297,6 +298,7 @@ public class Player : MonoBehaviour
         }
         if(Input.GetAxis("Vertical") != 0)
         {
+            if (horizontalMoveOnly) { return; }
             canJump = false;
             if (transform.position == targetPosition)
             {

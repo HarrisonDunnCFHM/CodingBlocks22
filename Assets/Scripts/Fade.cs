@@ -6,11 +6,14 @@ public class Fade : MonoBehaviour
 {
     //config params
     [SerializeField] float fadeRate = 0.1f;
+    [SerializeField] bool ignoreFadeIn;
+    [SerializeField] bool ignoreFadeOut;
 
     //cached refs
     SpriteRenderer myRenderer;
     public bool fadeIn;
     public bool fadeOut;
+
 
     
     // Start is called before the first frame update
@@ -19,7 +22,10 @@ public class Fade : MonoBehaviour
         fadeIn = true;
         fadeOut = false;
         myRenderer = GetComponent<SpriteRenderer>();
-        myRenderer.color = new Color (myRenderer.color.r, myRenderer.color.g, myRenderer.color.b,1);
+        if (!ignoreFadeIn)
+        {
+            myRenderer.color = new Color(myRenderer.color.r, myRenderer.color.g, myRenderer.color.b, 1);
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +48,7 @@ public class Fade : MonoBehaviour
         }
         else if (fadeIn && myRenderer.color.a <= 1)
         {
+            if (ignoreFadeIn) { return; }
             var newAlpha = myRenderer.color.a - (fadeRate * Time.deltaTime);
             myRenderer.color = new Color(myRenderer.color.r, myRenderer.color.g, myRenderer.color.b, newAlpha);
             if (myRenderer.color.a <= 0)

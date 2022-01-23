@@ -9,9 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 0bfdc774e298b254895ff9ce93fa9c7a
   - enabled: 1
-    path: Assets/Scenes/Blank.unity
-    guid: 75d4c6f79c07f784da8d1fd0985c79cb
+    path: Assets/Scenes/Stage 1.unity
+    guid: 163db2daed600554c802e4cdeb7c76a6
   - enabled: 1
-    path: Assets/Scenes/Sandbox.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Stage 2.unity
+    guid: ebb5d41dbb7ed584e808986fdeee2568
+  - enabled: 1
+    path: Assets/Scenes/Stage 3.unity
+    guid: 087d4dcc61350c7468b29702492a087c
+  - enabled: 1
+    path: Assets/Scenes/Stage 4.unity
+    guid: 3bd7d239169a75942b2c2e1852b6c9b4
+  - enabled: 1
+    path: Assets/Scenes/Stage 5.unity
+    guid: a6eb9651234b8054ea7ee35d471e1f3f
+  - enabled: 1
+    path: Assets/Scenes/Stage 6.unity
+    guid: f50fb46153732b448bd9b111bf090422
+  - enabled: 1
+    path: Assets/Scenes/Stage 7.unity
+    guid: b09d28f7f8681db4e80f3366fe86ec8c
+  - enabled: 1
+    path: Assets/Scenes/credits.unity
+    guid: f09de27f010da9c4f886a26795999763
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: c28f3b80b3b7c134b9f9a70a2ef222bc
   m_configObjects: {}

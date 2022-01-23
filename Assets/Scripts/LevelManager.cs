@@ -20,8 +20,9 @@ public class LevelManager : MonoBehaviour
     Player player;
     Shadows shadow;
     Fade fadeLevel;
+    bool canTransition;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,18 +42,46 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         ResetLevel();
+        ProcessFadeOut();
+    }
+
+    private void ProcessFadeOut()
+    {
+        if (fadeLevel.GetComponent<SpriteRenderer>().color.a == 1)
+        {
+            canTransition = true;
+        }
+        else
+        {
+            canTransition = false;
+        }
     }
 
     private void ResetLevel()
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(CoroutineReset());
         }
+    }
+
+    private IEnumerator CoroutineReset()
+    {
+        fadeLevel.fadeOut = true;
+        player.movementDisabled = true;
+        while (!canTransition) { yield return null; }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadNextLevel()
     {
+        StartCoroutine(CoroutineLoadNextLevel());
+    }
+
+    public IEnumerator CoroutineLoadNextLevel()
+    {
+        fadeLevel.fadeOut = true;
+        while (!canTransition) { yield return null; }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
