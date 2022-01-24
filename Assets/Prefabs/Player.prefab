@@ -243,6 +243,8 @@ MonoBehaviour:
   inputFrames: 5
   currentFrame: 0
   horizontalMoveOnly: 0
+  myTorch: {fileID: 6922514453954294847}
+  targetPosition: {x: 0, y: 0, z: 0}
   levelCompleted: 0
 --- !u!1 &6922514453954294847
 GameObject:
@@ -254,7 +256,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6922514453954294834}
   - component: {fileID: 6922514453954294833}
-  - component: {fileID: 6922514453954294835}
   - component: {fileID: 6922514453954294836}
   - component: {fileID: 6922514453954294837}
   - component: {fileID: 6922514453954294838}
@@ -331,18 +332,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6922514453954294835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6922514453954294847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70416a5b3e07f294e893757e484d5244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &6922514453954294836
 Animator:
   serializedVersion: 3
@@ -380,7 +369,7 @@ MonoBehaviour:
   m_Color: {r: 0.9749143, g: 1, b: 0.5330188, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000f5070f6f0b602d8aef50a153058a437c075c46b1bfd54d6cd32b8e86f7f42d2c49eae631
+  m_ApplyToSortingLayers: 00000000f5070f6f0b602d8a4fe9ade0ef50a153058a437c0fe8587b075c46b1bfd54d6cd32b8e86f7f42d2c49eae631efad2174ed611d16
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0

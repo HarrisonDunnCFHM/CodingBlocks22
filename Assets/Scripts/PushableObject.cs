@@ -27,6 +27,7 @@ public class PushableObject : MonoBehaviour
     List<Pickup> pickups;
     Tilemap hazards;
     AudioManager audioManager;
+    GameData gameData;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class PushableObject : MonoBehaviour
         pickups = new List<Pickup>(FindObjectsOfType<Pickup>());
         hazards = FindObjectOfType<Tilemap>();
         audioManager = FindObjectOfType<AudioManager>();
+        gameData = FindObjectOfType<GameData>();
     }
 
     // Update is called once per frame
@@ -116,6 +118,7 @@ public class PushableObject : MonoBehaviour
         foreach (PushableObject pushable in pushableObjects)
         {
             if (pushable == null) { break; }
+            if (!gameData.unlockedFloat && hazards.HasTile(Vector3Int.RoundToInt(transform.position + pushDirection))) { return false; }
             if (transform.position + pushDirection == pushable.transform.position)
             {
                 return false;

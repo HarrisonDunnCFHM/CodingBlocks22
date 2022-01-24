@@ -21,6 +21,9 @@ public class LevelManager : MonoBehaviour
     Shadows shadow;
     Fade fadeLevel;
     bool canTransition;
+    GameData gameData;
+    Vector3 playerStartPos;
+    List<PushableObject> pushables;
 
 
     // Start is called before the first frame update
@@ -30,12 +33,15 @@ public class LevelManager : MonoBehaviour
         winText.enabled = false;
         loseText.enabled = false;
         player = FindObjectOfType<Player>();
+        playerStartPos = player.transform.position;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = targetFrameRate;
         shadow = FindObjectOfType<Shadows>();
         fadeLevel = FindObjectOfType<Fade>();
         fadeLevel.fadeIn = true;
         levelWon = false;
+        gameData = FindObjectOfType<GameData>();
+        pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
     }
 
     // Update is called once per frame
@@ -70,7 +76,24 @@ public class LevelManager : MonoBehaviour
         fadeLevel.fadeOut = true;
         player.movementDisabled = true;
         while (!canTransition) { yield return null; }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (player.transform.position != playerStartPos && gameData.unlockedReset)
+        {
+            foreach(PushableObject pushable in pushables)
+            {
+                if (pushable.transform.position == playerStartPos)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+            }
+            player.transform.position = new Vector3(playerStartPos.x, playerStartPos.y, playerStartPos.z);
+            fadeLevel.fadeIn = true;
+            player.targetPosition = playerStartPos;
+            player.movementDisabled = false;
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void LoadNextLevel()

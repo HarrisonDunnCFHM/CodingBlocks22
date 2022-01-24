@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Shadows : MonoBehaviour
 {
+    enum Gift { None, Strength, Torch, Jump, Float, Reset};
+    
     //config params
     [SerializeField] Image inventorySlot1;
     [SerializeField] float revealRate = 1f;
+    [SerializeField] Gift myGift;
+    [SerializeField] float engageRange = 1f;
 
     //cached refs
     Sprite collectableGift;
@@ -17,6 +22,8 @@ public class Shadows : MonoBehaviour
     SpriteRenderer myRenderer;
     public bool revealSelf;
     AudioManager audioManager;
+    GameData gameData;
+    Light2D myLight;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +33,9 @@ public class Shadows : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
         myRenderer = GetComponent<SpriteRenderer>();
         audioManager = FindObjectOfType<AudioManager>();
+        gameData = FindObjectOfType<GameData>();
+        myLight = GetComponent<Light2D>();
+        myLight.enabled = false;
     }
 
     // Update is called once per frame
@@ -38,18 +48,45 @@ public class Shadows : MonoBehaviour
     private void CheckForGift()
     {
         var distToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if (distToPlayer < transform.localScale.x)
+        if (distToPlayer < engageRange)
         {
             if (inventorySlot1.sprite == collectableGift)
             {
                 levelManager.TriggerWinningEnd(true);
                 inventorySlot1.enabled = false;
+                UnlockGift();
             }
             else
             {
                 levelManager.TriggerWinningEnd(false);
             }
         }
+    }
+
+    private void UnlockGift()
+    {
+        switch (myGift)
+        {
+            case Gift.Strength:
+                gameData.unlockedStrength = true;
+                break;
+            case Gift.Jump:
+                gameData.unlockedJump = true;
+                break;
+            case Gift.Torch:
+                gameData.unlockedTorch = true;
+                break;
+            case Gift.Float:
+                gameData.unlockedFloat = true;
+                break;
+            case Gift.Reset:
+                gameData.unlockedReset = true;
+                break;
+            default:
+                break;
+        }
+        player.UpdateUnlocks();
+        
     }
 
     public void RevealSelf()
@@ -60,6 +97,7 @@ public class Shadows : MonoBehaviour
             float newBlue = myRenderer.color.b + (revealRate * Time.deltaTime);
             float newGreen = myRenderer.color.g + (revealRate * Time.deltaTime);
             myRenderer.color = new Color(newRed, newBlue, newGreen);
+            myLight.enabled = true;
         }
 
     }

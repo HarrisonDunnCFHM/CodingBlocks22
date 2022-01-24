@@ -47,3 +47,4 @@ MonoBehaviour:
   loseText: {fileID: 0}
   targetFrameRate: 60
   pickupCollected: 0
+  levelWon: 0

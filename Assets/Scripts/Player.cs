@@ -27,9 +27,10 @@ public class Player : MonoBehaviour
     bool unlockedStrength;
     bool unlockedTorch;
     bool unlockedJump;
+    bool unlockedReset;
 
     //cached refs
-    Vector3 targetPosition;
+    public Vector3 targetPosition;
     bool blocked;
     bool pushing;
     bool jumping;
@@ -55,10 +56,7 @@ public class Player : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         levelCompleted = false;
         gameData = FindObjectOfType<GameData>();
-        unlockedStrength = gameData.unlockedStrength;
-        unlockedTorch = gameData.unlockedTorch;
-        unlockedJump = gameData.unlockedJump;
-        if (!unlockedTorch) { myTorch.SetActive(false); }
+        UpdateUnlocks();
     }
 
     // Update is called once per frame
@@ -70,6 +68,15 @@ public class Player : MonoBehaviour
         AnimatePlayer();
         MovePlayer();
         CheckForHazard();
+    }
+
+    public void UpdateUnlocks()
+    {
+        unlockedStrength = gameData.unlockedStrength;
+        unlockedTorch = gameData.unlockedTorch;
+        unlockedJump = gameData.unlockedJump;
+        unlockedReset = gameData.unlockedFloat;
+        if (unlockedTorch) { myTorch.SetActive(true); } else { myTorch.SetActive(false); }
     }
 
     private void UpdateBounds()

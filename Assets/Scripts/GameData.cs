@@ -8,6 +8,8 @@ public class GameData : MonoBehaviour
     public bool unlockedStrength;
     public bool unlockedTorch;
     public bool unlockedJump;
+    public bool unlockedFloat;
+    public bool unlockedReset;
 
     private void Awake()
     {
@@ -26,9 +28,7 @@ public class GameData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        unlockedStrength = false;
-        unlockedTorch = false;
-        unlockedJump = false;
+       
     }
 
     // Update is called once per frame
