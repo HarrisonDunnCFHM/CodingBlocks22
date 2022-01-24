@@ -649,10 +649,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
+      propertyPath: m_Intensity
+      value: 1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5467963632459534358, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
       propertyPath: endLevelText
       value: 
       objectReference: {fileID: 1099849200}
+    - target: {fileID: 5467963632459534358, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
+      propertyPath: lightFadeSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5467963632459534359, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
       propertyPath: m_Name
       value: Level Exit
