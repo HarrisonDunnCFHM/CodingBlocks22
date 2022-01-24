@@ -649,26 +649,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
-      propertyPath: m_Intensity
-      value: 1.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 1.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5467963632459534357, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5467963632459534358, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
       propertyPath: endLevelText
       value: 
       objectReference: {fileID: 1099849200}
-    - target: {fileID: 5467963632459534358, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
-      propertyPath: lightFadeSpeed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5467963632459534359, guid: 563aa86f3532b63479f3c556fdc1b935, type: 3}
       propertyPath: m_Name
       value: Level Exit
@@ -1095,6 +1079,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1498656481
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1007859351140683553, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
 --- !u!1001 &1537673758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1499,6 +1540,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 480152789135578736, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2464558719796761723, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1591,17 +1636,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
-      propertyPath: m_Text
-      value: "Bring me that \nthing"
+    - target: {fileID: 2663934075809644000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -104
+    - target: {fileID: 4730476946509318505, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
-      propertyPath: m_Text
-      value: Good. You may now push things.
+    - target: {fileID: 5885108782007687469, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6691067991406326164, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7010823732579246936, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}

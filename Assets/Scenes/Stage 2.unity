@@ -180,6 +180,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64da35324532a244db7aaeea4a8547ca, type: 3}
+--- !u!1001 &444258643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1007859351140683553, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007859351140683556, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fead7a13882b08e459fc1bff8354a874, type: 3}
 --- !u!1 &446603884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +1674,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -306
       objectReference: {fileID: 0}
+    - target: {fileID: 480152789135578736, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2464558719796761723, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1723,7 +1784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Text
-      value: I want a bright thing!
+      value: I want a feather!
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1740,6 +1801,26 @@ PrefabInstance:
     - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Text
       value: Thank you! You can jump now with SPACE. Do you know what that means?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663934075809644000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730476946509318505, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885108782007687469, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6691067991406326164, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7010823732579246936, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
@@ -1969,6 +2050,14 @@ PrefabInstance:
       propertyPath: m_ApplyToSortingLayers.Array.data[13]
       value: 371024365
       objectReference: {fileID: 0}
+    - target: {fileID: 4428652294385031313, guid: 8494a6ed4f5130c4fa470597520b4062, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428652294385031316, guid: 8494a6ed4f5130c4fa470597520b4062, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1b4daf72e4c7fa47bf74dd3c04c2f5a, type: 3}
     - target: {fileID: 4428652294385031317, guid: 8494a6ed4f5130c4fa470597520b4062, type: 3}
       propertyPath: pickedUpObject
       value: 

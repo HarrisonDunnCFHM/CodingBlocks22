@@ -23,19 +23,21 @@ public class Player : MonoBehaviour
     [SerializeField] bool horizontalMoveOnly;
     [SerializeField] GameObject myTorch;
     [SerializeField] int maxJumpDist = 2;
+    [SerializeField] float footstepSFXLevel = 0.25f;
+    [SerializeField] List<AudioClip> myFootsteps;
 
     //unlocks 
     bool unlockedStrength;
     bool unlockedTorch;
-    bool unlockedJump;
+    [SerializeField] bool unlockedJump;
     bool unlockedReset;
 
     //cached refs
     public Vector3 targetPosition;
     bool blocked;
     bool pushing;
-    bool jumping;
-    bool canJump;
+    [SerializeField] bool jumping;
+    [SerializeField] bool canJump;
     List<PushableObject> pushables;
     Tilemap hazards;
     LevelManager levelManager;
@@ -101,7 +103,7 @@ public class Player : MonoBehaviour
                         myAnimator.Play("Player Jump Down");
                     }
                     else if (pushing)
-                    { 
+                    {
                         myAnimator.Play("Player Interact Down");
                         pushing = false;
                     }
@@ -109,7 +111,7 @@ public class Player : MonoBehaviour
                     {
                         myAnimator.Play("Player Walk Down");
                     }
-               
+
                 }
                 else
                 {
@@ -132,7 +134,7 @@ public class Player : MonoBehaviour
                     {
                         myAnimator.Play("Player Jump Up");
                     }
-                    else if(pushing)
+                    else if (pushing)
                     {
                         myAnimator.Play("Player Interact Up");
                         pushing = false;
@@ -224,14 +226,14 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        if ( transform.position != targetPosition)
+        if (transform.position != targetPosition)
         {
             CheckForObstacle();
-            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || targetPosition.x > upperXBound || targetPosition.x < lowerYBound || blocked) 
-            { 
+            if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound || targetPosition.x > upperXBound || targetPosition.x < lowerYBound || blocked)
+            {
                 targetPosition = transform.position;
                 pushing = true;
-                return; 
+                return;
             }
             var direction = targetPosition - transform.position;
             if (jumping)
@@ -244,16 +246,21 @@ public class Player : MonoBehaviour
             }
         }
 
-        var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position );
+        var distanceMag = Vector2.SqrMagnitude(targetPosition - transform.position);
         if (distanceMag < moveSnapThreshold)
         {
+            if(transform.position != targetPosition)
+            {
+                PlayFootstep();
+            }
             SnapToGrid();
+
         }
     }
 
     private void CheckForObstacle()
     {
-        
+
         foreach (PushableObject pushable in pushables)
         {
             if (pushable == null) { break; }
@@ -290,6 +297,14 @@ public class Player : MonoBehaviour
         jumping = false;
         canJump = true;
     }
+
+    private void PlayFootstep()
+    {
+        int clipIndex = UnityEngine.Random.Range(0, myFootsteps.Count - 1);
+        AudioClip clipToPlay = myFootsteps[clipIndex];
+        AudioSource.PlayClipAtPoint(clipToPlay, Camera.main.transform.position, audioManager.effectVolume * footstepSFXLevel);
+    }
+
 
     private void ProcessInputs()
     {

@@ -244,6 +244,14 @@ MonoBehaviour:
   currentFrame: 0
   horizontalMoveOnly: 0
   myTorch: {fileID: 6922514453954294847}
+  maxJumpDist: 2
+  footstepSFXLevel: 0.25
+  myFootsteps:
+  - {fileID: 8300000, guid: 7eac421850548fd44b65ce4042480ccc, type: 3}
+  - {fileID: 8300000, guid: bc0e1f12deb834e4e8f3db7c3f3bb657, type: 3}
+  - {fileID: 8300000, guid: 22eaf5753ad9267428b080f06847a7fa, type: 3}
+  - {fileID: 8300000, guid: 1e7cc46b04d6aa542b7cde5591849a21, type: 3}
+  - {fileID: 8300000, guid: 0b6f50a9347b6c8438f4b08fe8d6251b, type: 3}
   targetPosition: {x: 0, y: 0, z: 0}
   levelCompleted: 0
 --- !u!1 &6922514453954294847
