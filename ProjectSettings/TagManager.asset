@@ -50,11 +50,11 @@ TagManager:
   - name: Ground
     uniqueID: 3769493839
     locked: 0
-  - name: Background Front
-    uniqueID: 1403080943
-    locked: 0
   - name: Hazards
     uniqueID: 2084801029
+    locked: 0
+  - name: Background Front
+    uniqueID: 1403080943
     locked: 0
   - name: Effects
     uniqueID: 2069424143

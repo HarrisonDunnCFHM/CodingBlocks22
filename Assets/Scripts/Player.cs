@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] int currentFrame;
     [SerializeField] bool horizontalMoveOnly;
     [SerializeField] GameObject myTorch;
+    [SerializeField] int maxJumpDist = 2;
 
     //unlocks 
     bool unlockedStrength;
@@ -418,10 +419,13 @@ public class Player : MonoBehaviour
         }
         if (jumping)
         {
-            while (hazards.HasTile(Vector3Int.RoundToInt(targetPosition)))
+            var jumpDist = 0;
+            while (hazards.HasTile(Vector3Int.RoundToInt(targetPosition)) && jumpDist < maxJumpDist)
             {
                 targetPosition = (Vector2)targetPosition + directionToCheck;
+                jumpDist++;
             }
+            if (hazards.HasTile(Vector3Int.RoundToInt(targetPosition))) { return; }
             if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) { return; }
             foreach (PushableObject pushable in pushables)
             {
