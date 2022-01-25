@@ -28,6 +28,7 @@ public class PushableObject : MonoBehaviour
     Tilemap hazards;
     AudioManager audioManager;
     GameData gameData;
+    Shadows shadow;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class PushableObject : MonoBehaviour
         hazards = FindObjectOfType<Tilemap>();
         audioManager = FindObjectOfType<AudioManager>();
         gameData = FindObjectOfType<GameData>();
+        shadow = FindObjectOfType<Shadows>();
     }
 
     // Update is called once per frame
@@ -111,17 +113,19 @@ public class PushableObject : MonoBehaviour
 
     private bool CheckForObstructions(Vector3 pushDirection)
     {
-        if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound)
+        if (transform.position.y + pushDirection.y > upperYBound || transform.position.y + pushDirection.y < lowerYBound )
         {
             return false;
         }
         foreach (PushableObject pushable in pushableObjects)
         {
-            if (pushable == null) { break; }
-            if (!gameData.unlockedFloat && hazards.HasTile(Vector3Int.RoundToInt(transform.position + pushDirection))) { return false; }
-            if (transform.position + pushDirection == pushable.transform.position)
+            if (pushable != null)
             {
-                return false;
+                if (!gameData.unlockedFloat && hazards.HasTile(Vector3Int.RoundToInt(transform.position + pushDirection))) { return false; }
+                if (transform.position + pushDirection == pushable.transform.position)
+                {
+                    return false;
+                }
             }
         }
         foreach (Pickup pickup in pickups)
@@ -133,6 +137,10 @@ public class PushableObject : MonoBehaviour
                     return false;
                 }
             }
+        }
+        if(transform.position + pushDirection == shadow.transform.position)
+        {
+            return false;
         }
         return true;
     }

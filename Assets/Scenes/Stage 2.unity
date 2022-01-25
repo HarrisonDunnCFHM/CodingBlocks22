@@ -1672,7 +1672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 793176719, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -306
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 480152789135578736, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1772,19 +1772,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720719863445, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 193.8
+      value: 246.81
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720719863445, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 95.89
+      value: 110.62
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720719863445, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 116.23001
+      value: 142.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863445, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -74.26001
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Text
-      value: I want a feather!
+      value: I have lost my lucky feather
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1792,18 +1816,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 142.7
+      value: 217.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720930910080, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -158.4
+      value: -127.850006
       objectReference: {fileID: 0}
     - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_Text
-      value: Thank you! You can jump now with SPACE. Do you know what that means?
+      value: 'Thank you
+
+
+        Jump with SPACE to soar over the icy depths'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464558720930910081, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2663934075809644000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3319958813576863908, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4730476946509318505, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
@@ -1822,8 +1873,23 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7105192855851422947, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+--- !u!114 &2464558721245798987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2464558720719863466, guid: aac6da0267c8bd547872cd233c15479f, type: 3}
+  m_PrefabInstance: {fileID: 2464558721245798986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3044524250892756545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2112,6 +2178,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8494a6ed4f5130c4fa470597520b4062, type: 3}
+--- !u!114 &4428652294823177166 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4428652294385031317, guid: 8494a6ed4f5130c4fa470597520b4062, type: 3}
+  m_PrefabInstance: {fileID: 4428652294823177165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f9248a0b0aefa42b8f1962de82623c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6607078322299873802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2180,9 +2257,33 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: desiredGift
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: engageRange
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: myWantedGift
+      value: 
+      objectReference: {fileID: 21300000, guid: a1b4daf72e4c7fa47bf74dd3c04c2f5a, type: 3}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
       propertyPath: inventorySlot1
       value: 
       objectReference: {fileID: 1419442835}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: collectableGifts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: inventorySlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 1419442835}
+    - target: {fileID: 6607078321778552330, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
+      propertyPath: collectableGifts.Array.data[0]
+      value: 
+      objectReference: {fileID: 4428652294823177166}
     - target: {fileID: 6607078321778552331, guid: 615d14a0e6bfac342975232997cf03e5, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2208,6 +2309,10 @@ PrefabInstance:
       propertyPath: loseText
       value: 
       objectReference: {fileID: 1645603718}
+    - target: {fileID: 8292214378210376830, guid: 5053c72a4fc36644b9f11207e3519787, type: 3}
+      propertyPath: instructions
+      value: 
+      objectReference: {fileID: 2464558721245798987}
     - target: {fileID: 8292214378210376831, guid: 5053c72a4fc36644b9f11207e3519787, type: 3}
       propertyPath: m_RootOrder
       value: 2

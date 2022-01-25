@@ -96,10 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d710e26ef11ab14896f2d58e4d680af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlot1: {fileID: 0}
+  inventorySlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   revealRate: 1
   myGift: 1
   engageRange: 2
+  desiredGift: 1
   revealSelf: 0
 --- !u!114 &1015156017
 MonoBehaviour:

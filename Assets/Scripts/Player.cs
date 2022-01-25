@@ -263,27 +263,29 @@ public class Player : MonoBehaviour
 
         foreach (PushableObject pushable in pushables)
         {
-            if (pushable == null) { break; }
-            if (jumping && targetPosition == pushable.transform.position)
+            if (pushable != null)
             {
-                blocked = true;
-                pushing = true;
-                jumping = false;
-            }
-            else if (!pushable.pushable && targetPosition == pushable.transform.position)
-            {
-                blocked = true;
-                pushing = true;
-            }
-            else if (pushable.pushable && targetPosition == pushable.transform.position)
-            {
-                if (!unlockedStrength)
+                if (jumping && targetPosition == pushable.transform.position)
                 {
                     blocked = true;
                     pushing = true;
                     jumping = false;
                 }
-                else { pushing = true; }
+                else if (!pushable.pushable && targetPosition == pushable.transform.position)
+                {
+                    blocked = true;
+                    pushing = true;
+                }
+                else if (pushable.pushable && targetPosition == pushable.transform.position)
+                {
+                    if (!unlockedStrength)
+                    {
+                        blocked = true;
+                        pushing = true;
+                        jumping = false;
+                    }
+                    else { pushing = true; }
+                }
             }
         }
     }
@@ -444,6 +446,7 @@ public class Player : MonoBehaviour
             if (targetPosition.y > upperYBound || targetPosition.y < lowerYBound) { return; }
             foreach (PushableObject pushable in pushables)
             {
+                if (pushable == null) { break; }
                 if ((Vector2)targetPosition == (Vector2)pushable.transform.position)
                 {
                     targetPosition = transform.position;

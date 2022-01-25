@@ -43,8 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a519cb28042add4b887f4db9b8a0509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instructions: {fileID: 0}
   winText: {fileID: 0}
   loseText: {fileID: 0}
   targetFrameRate: 60
   pickupCollected: 0
   levelWon: 0
+  levelLost: 0
+  canReset: 0

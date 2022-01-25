@@ -25,6 +25,15 @@ public class GameData : MonoBehaviour
         }
     }
 
+    public void ResetUnlocks()
+    {
+        unlockedFloat = false;
+        unlockedStrength = false;
+        unlockedReset = false;
+        unlockedJump = false;
+        unlockedTorch = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

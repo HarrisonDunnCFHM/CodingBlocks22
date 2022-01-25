@@ -10,13 +10,15 @@ public class Shadows : MonoBehaviour
     enum Gift { None, Strength, Torch, Jump, Float, Reset};
     
     //config params
-    [SerializeField] Image inventorySlot1;
+    [SerializeField] List<Image> inventorySlots;
     [SerializeField] float revealRate = 1f;
     [SerializeField] Gift myGift;
     [SerializeField] float engageRange = 1f;
+    [SerializeField] int desiredGift = 0;
+    [SerializeField] List<Pickup> collectableGifts;
 
     //cached refs
-    Sprite collectableGift;
+    [SerializeField] Sprite myWantedGift;
     Player player;
     LevelManager levelManager;
     SpriteRenderer myRenderer;
@@ -28,7 +30,6 @@ public class Shadows : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collectableGift = FindObjectOfType<Pickup>().GetComponent<SpriteRenderer>().sprite;
         player = FindObjectOfType<Player>();
         levelManager = FindObjectOfType<LevelManager>();
         myRenderer = GetComponent<SpriteRenderer>();
@@ -50,14 +51,15 @@ public class Shadows : MonoBehaviour
         var distToPlayer = Vector2.Distance(transform.position, player.transform.position);
         if (distToPlayer < engageRange)
         {
-            if (inventorySlot1.sprite == collectableGift)
+            if (inventorySlots[desiredGift].sprite == myWantedGift)
             {
                 levelManager.TriggerWinningEnd(true);
-                inventorySlot1.enabled = false;
+                inventorySlots[desiredGift].enabled = false;
                 UnlockGift();
             }
             else
             {
+                levelManager.levelLost = true;
                 levelManager.TriggerWinningEnd(false);
             }
         }

@@ -57,7 +57,9 @@ public class ExitLevel : MonoBehaviour
             {
                 fade.fadeOut = true;
                 player.movementDisabled = true;
+                levelManager.winText.enabled = false;
                 endLevelText.enabled = true;
+                levelManager.canReset = false;
                 if (Input.GetMouseButtonDown(0))
                 {
                     levelManager.LoadNextLevel();

@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     //config params
-    [SerializeField] Text winText;
+
+    [SerializeField] Text instructions;
+    public Text winText;
     [SerializeField] Text loseText;
 
     [SerializeField] int targetFrameRate = 60;
@@ -17,6 +19,8 @@ public class LevelManager : MonoBehaviour
     //cached refs
     public bool pickupCollected;
     public bool levelWon;
+    public bool levelLost;
+    public bool canReset;
     Player player;
     Shadows shadow;
     Fade fadeLevel;
@@ -40,8 +44,10 @@ public class LevelManager : MonoBehaviour
         fadeLevel = FindObjectOfType<Fade>();
         fadeLevel.fadeIn = true;
         levelWon = false;
+        levelLost = false;
         gameData = FindObjectOfType<GameData>();
         pushables = new List<PushableObject>(FindObjectsOfType<PushableObject>());
+        canReset = true;
     }
 
     // Update is called once per frame
@@ -65,6 +71,7 @@ public class LevelManager : MonoBehaviour
 
     private void ResetLevel()
     {
+        if (!canReset) { return; }
         if(Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(CoroutineReset());
@@ -76,13 +83,16 @@ public class LevelManager : MonoBehaviour
         fadeLevel.fadeOut = true;
         player.movementDisabled = true;
         while (!canTransition) { yield return null; }
-        if (player.transform.position != playerStartPos && gameData.unlockedReset)
+        if (player.transform.position != playerStartPos && gameData.unlockedReset && !levelLost)
         {
-            foreach(PushableObject pushable in pushables)
+            foreach (PushableObject pushable in pushables)
             {
-                if (pushable.transform.position == playerStartPos)
+                if (pushable != null)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    if (pushable.transform.position == playerStartPos)
+                    {
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    }
                 }
             }
             player.transform.position = new Vector3(playerStartPos.x, playerStartPos.y, playerStartPos.z);
@@ -132,6 +142,7 @@ public class LevelManager : MonoBehaviour
             winText.enabled = true;
             shadow.revealSelf = true;
             levelWon = true;
+            instructions.enabled = false;
         }
         else
         {
