@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         levelCompleted = false;
         gameData = FindObjectOfType<GameData>();
+        myDirection = PlayerDirection.Down;
         UpdateUnlocks();
     }
 
@@ -467,6 +468,7 @@ public class Player : MonoBehaviour
         {
             myDirection = PlayerDirection.None;
             myAnimator.Play("Player Fall");
+            levelManager.levelLost = true;
             levelManager.TriggerWinningEnd(false);
         }
     }

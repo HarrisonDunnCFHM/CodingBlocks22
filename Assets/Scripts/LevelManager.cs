@@ -99,6 +99,7 @@ public class LevelManager : MonoBehaviour
             fadeLevel.fadeIn = true;
             player.targetPosition = playerStartPos;
             player.movementDisabled = false;
+            loseText.enabled = false;
         }
         else
         {
